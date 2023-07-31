@@ -18,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import static top.wangxiaomei.thing.Thing_BlockEntity.TEST_BLOCK_ENTITY_TYPE;
 
 public class Machine_BlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
+
+    //存放物品的栈
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public Machine_BlockEntity(BlockPos pos, BlockState state) {
@@ -50,6 +52,7 @@ public class Machine_BlockEntity extends BlockEntity implements ImplementedInven
         return items;
     }
 
+
     @Override
     public Text getDisplayName() {
         return Text.translatable(getCachedState().getBlock().getTranslationKey());
@@ -60,6 +63,6 @@ public class Machine_BlockEntity extends BlockEntity implements ImplementedInven
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         //We provide *this* to the screenHandler as our class Implements Inventory
         //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return null;
+        return new BoxScreenHandler(syncId, playerInventory, this);;
     }
 }

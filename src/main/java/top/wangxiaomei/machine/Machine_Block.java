@@ -1,9 +1,6 @@
 package top.wangxiaomei.machine;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -21,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 
-public class Machine_Block extends Block implements BlockEntityProvider {
+public class Machine_Block extends BlockWithEntity {
     public Machine_Block(Settings settings) {
         super(settings);
         //设置默认状态
@@ -77,7 +74,7 @@ public class Machine_Block extends Block implements BlockEntityProvider {
 
     }
 
-    //This method will drop all items onto the ground when the block is broken
+    //此方法将在块断裂时将所有物品掉落到地面上
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
@@ -107,17 +104,7 @@ public class Machine_Block extends Block implements BlockEntityProvider {
         return new Machine_BlockEntity(pos, state);
     }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return BlockEntityProvider.super.getTicker(world, state, type);
-    }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> GameEventListener getGameEventListener(ServerWorld world, T blockEntity) {
-        return BlockEntityProvider.super.getGameEventListener(world, blockEntity);
-    }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
