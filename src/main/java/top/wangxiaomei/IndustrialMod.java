@@ -38,6 +38,8 @@ public class IndustrialMod implements ModInitializer {
         //自定义矿物
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, CUSTOM_ORE_PLACED_KEY);
 
+
+
 //		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 //			var playerName = player.getDisplayName().copy();
 //			var entityName = entity.getDisplayName().copy();

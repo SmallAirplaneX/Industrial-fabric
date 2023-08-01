@@ -2,6 +2,13 @@ package top.wangxiaomei.ore;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import top.wangxiaomei.ore.fragment.Ore_Fragments;
 import top.wangxiaomei.thing.Thing;
 import top.wangxiaomei.thing.Things;
@@ -40,9 +47,9 @@ public class Ores extends Things {
             .setItem(new FabricItemSettings()));
 
 
+
     public static void load() {
         Ore_Fragments.load();
+
     }
-
-
 }

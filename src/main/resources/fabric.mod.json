@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "industrial",
+	"version": "1.0.0",
+	"name": "Industrial",
+	"description": "这是一个科技革命类模组!",
+	"authors": [
+		"今晚踢被子!"
+	],
+	"contact": {
+		"homepage": "https://mc.wangxiaomei.top/",
+		"sources": "https://github.com/SmallAirplaneX/Industrial-fabric"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/industrial/icon.png",
+	"environment": "*",
+	"entrypoints": {
+
+		"main": [
+			"top.wangxiaomei.IndustrialMod"
+		],
+		"client": [
+			"top.wangxiaomei.IndustrialModClient"
+		],
+		"fabric-datagen": [
+			"top.wangxiaomei.IndustrialModDataGenerator"
+		]
+	},
+	"mixins": [
+		"industrial.mixins.json",
+		{
+			"config": "industrial.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
