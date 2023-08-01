@@ -1,14 +1,18 @@
 package top.wangxiaomei.machine;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Identifier;
 
 public class BoxScreenHandler extends ScreenHandler {
+    private static final ScreenHandlerType<BoxScreenHandler> BOX_SCREEN_HANDLER = new ExtendedScreenHandlerType<>((syncId1, inventory1, buf) -> new BoxScreenHandler(syncId1, inventory1));
     private final Inventory inventory;
 
     //This constructor gets called on the client when the server wants it to open the screenHandler,
