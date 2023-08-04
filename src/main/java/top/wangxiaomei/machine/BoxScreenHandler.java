@@ -1,24 +1,28 @@
 package top.wangxiaomei.machine;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
-public class BoxScreenHandler extends ScreenHandler {
+import static top.wangxiaomei.IndustrialMod.BOX_SCREEN_HANDLER;
+
+public class BoxScreenHandler extends ScreenHandler  {
     private final Inventory inventory;
 
-    //This constructor gets called on the client when the server wants it to open the screenHandler,
-    //The client will call the other constructor with an empty Inventory and the screenHandler will automatically
-    //sync this empty inventory with the inventory on the server.
+    //当服务器发送 screenHandler 请求时，客户端会调用此构造函数，客户端将使用空的 Inventory 调用另一个构造函数，并且 screenHandler 将自动与服务器上的清单同步。
+
     public BoxScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(9));
     }
 
-    //This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
+    //此构造函数从服务器上的 BlockEntity 调用，而无需先调用其他构造函数，服务器知道容器的清单
     //and can therefore directly provide it as an argument. This inventory will then be synced to the client.
     public BoxScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
         super(BOX_SCREEN_HANDLER, syncId);
@@ -29,6 +33,38 @@ public class BoxScreenHandler extends ScreenHandler {
 
         //This will place the slot in the correct locations for a 3x3 Grid. The slots exist on both server and client!
         //This will not render the background of the slots however, this is the Screens job
+        //渲染工作
+        int m;
+        int l;
+        //Our inventory
+        for (m = 0; m < 3; ++m) {
+            for (l = 0; l < 3; ++l) {
+                this.addSlot(new Slot(inventory, l + m * 3, 62 + l * 18, 17 + m * 18));
+            }
+        }
+        //The player inventory
+        for (m = 0; m < 3; ++m) {
+            for (l = 0; l < 9; ++l) {
+                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
+            }
+        }
+        //The player Hotbar
+        for (m = 0; m < 9; ++m) {
+            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
+        }
+
+    }
+
+    public BoxScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+        super(BOX_SCREEN_HANDLER, syncId);
+        checkSize((Inventory) packetByteBuf, 9);
+        this.inventory = (Inventory) packetByteBuf;
+        //some inventories do custom logic when a player opens it.
+        inventory.onOpen(playerInventory.player);
+
+        //This will place the slot in the correct locations for a 3x3 Grid. The slots exist on both server and client!
+        //This will not render the background of the slots however, this is the Screens job
+        //渲染工作
         int m;
         int l;
         //Our inventory

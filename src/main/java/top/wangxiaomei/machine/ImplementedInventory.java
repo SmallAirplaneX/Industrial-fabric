@@ -9,27 +9,26 @@ import net.minecraft.util.collection.DefaultedList;
 public interface ImplementedInventory extends Inventory {
 
     /**
-     * Creates an inventory from the item list.
+     * 创建存储表
      */
     static ImplementedInventory of(DefaultedList<ItemStack> items) {
         return () -> items;
     }
 
     /**
-     * Creates a new inventory with the specified size.
+     * 创建指定大小的物品存储表
      */
     static ImplementedInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
     /**
-     * Retrieves the item list of this inventory.
-     * Must return the same instance every time it's called.
+     * 存在物品则返回实例
      */
     DefaultedList<ItemStack> getItems();
 
     /**
-     * Returns the inventory size.
+     * 返回存储大小
      */
     @Override
     default int size() {
@@ -37,9 +36,9 @@ public interface ImplementedInventory extends Inventory {
     }
 
     /**
-     * Checks if the inventory is empty.
+     * 检查是否为空
      *
-     * @return true if this inventory has only empty stacks, false otherwise.
+     * @return 空则返回是，否则反之.
      */
     @Override
     default boolean isEmpty() {

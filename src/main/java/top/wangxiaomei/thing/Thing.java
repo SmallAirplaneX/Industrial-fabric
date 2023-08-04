@@ -23,6 +23,9 @@ public abstract class Thing<T extends Thing<T>> {
     public Block getBlock() {
         return block;
     }
+    public Identifier getIdentifier() {
+        return identifier;
+    }
 
     public abstract Thing<T> setBlock(AbstractBlock.Settings blockSettings);
 

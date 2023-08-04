@@ -20,10 +20,10 @@ import static top.wangxiaomei.thing.Thing_BlockEntity.TEST_BLOCK_ENTITY_TYPE;
 public class Machine_BlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
 
     //存放物品的栈
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(size(), ItemStack.EMPTY);
 
     public Machine_BlockEntity(BlockPos pos, BlockState state) {
-        // We will create this BlockEntityType later on
+        // 在之后的步骤里创建
         super(TEST_BLOCK_ENTITY_TYPE, pos, state);
     }
 
@@ -51,7 +51,10 @@ public class Machine_BlockEntity extends BlockEntity implements ImplementedInven
     public DefaultedList<ItemStack> getItems() {
         return items;
     }
-
+    @Override
+    public int size() {
+        return 3 * 3;
+    }
 
     @Override
     public Text getDisplayName() {
@@ -63,6 +66,6 @@ public class Machine_BlockEntity extends BlockEntity implements ImplementedInven
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         //We provide *this* to the screenHandler as our class Implements Inventory
         //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return new BoxScreenHandler(syncId, playerInventory, this);;
+        return new BoxScreenHandler(syncId, playerInventory, this);
     }
 }

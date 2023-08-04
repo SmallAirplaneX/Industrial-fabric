@@ -81,7 +81,7 @@ public class Machine_Block extends BlockWithEntity {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof Machine_BlockEntity) {
                 ItemScatterer.spawn(world, pos, (Machine_BlockEntity) blockEntity);
-                // update comparators
+                // 更新
                 world.updateComparators(pos, this);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
