@@ -14,8 +14,8 @@ public class BoxScreen extends  HandledScreen<ScreenHandler> {
     //A path to the gui texture. In this example we use the texture from the dispenser
     private static final Identifier TEXTURE = new Identifier("minecraft", "textures/gui/container/dispenser.png");
 
-    public BoxScreen(BoxScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+    public BoxScreen(ScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
+        super(screenHandler,playerInventory ,text);
     }
 
     @Override
